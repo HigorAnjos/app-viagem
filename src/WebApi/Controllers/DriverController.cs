@@ -38,8 +38,15 @@ namespace WebApi.Controllers
             {
                 return BadRequest();
             }
+
             var result = await _saveDriverByIdAsync.SaveDriverAsync(driver);
-            return CreatedAtAction(nameof(GetDriverByIdAsync), new { id = result.Id }, result);
+
+            if (result == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while saving the driver.");
+            }
+
+            return StatusCode(StatusCodes.Status201Created, result);
         }
 
         // DELETE api/driver/{id}

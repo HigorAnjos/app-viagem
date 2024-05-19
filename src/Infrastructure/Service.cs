@@ -14,6 +14,7 @@ namespace Infrastructure
     {
         private readonly IOptionsSnapshot<ConnectionStrings> _options;
         private readonly IDbConnection _connection;
+        private readonly IScriptLoader _scriptLoader;
 
         public Service(IOptionsSnapshot<ConnectionStrings> options, IScriptLoader scriptLoader)
         {
@@ -25,9 +26,12 @@ namespace Infrastructure
 
         protected override string FolderPath => "Infrastructure";
 
-        public Task<bool> DeleteDriverByIdAsync(long id)
+        public async Task<bool> DeleteDriverByIdAsync(long id)
         {
-            throw new NotImplementedException();
+            var query = await _scriptLoader.GetCachedScriptAsync(FolderPath, "Script_DeleteDriverById.sql");
+            var command = new CommandDefinition(commandText: query, parameters: new { Id = id });
+            var rowsAffected = await _connection.ExecuteAsync(command);
+            return rowsAffected > 0;
         }
 
         public Task<bool> DeleteOwnerAsync(long id)
@@ -57,6 +61,54 @@ namespace Infrastructure
             return await _connection.QueryFirstOrDefaultAsync<Domain.Entities.Driver>(command);
         }
 
+        public async Task<Driver> SaveDriverAsync(Driver driver)
+        {
+            string query;
+            CommandDefinition command;
+
+            if (driver?.Id == null || driver?.Id == 0)
+            {
+                // Carregar o script de inserção de novo motorista
+                query = await _scriptLoader.GetCachedScriptAsync(FolderPath, "Script_NewDriver.sql");
+
+
+                var parameters = new
+                {
+                    Name = driver.Name,
+                    CPF = driver.CPF,
+                    Address = driver.Address,
+                    Phone = driver.Phone,
+                    CNH = driver.CNH,
+                    Bank = driver.Bank,
+                    Agency = driver.Agency,
+                    Account = driver.Account
+                };
+                command = new CommandDefinition(commandText: query, parameters: parameters);
+                driver.Id = await _connection.ExecuteScalarAsync<int>(command); // Retorna o ID gerado
+            }
+            else
+            {
+                // Carregar o script de atualização do motorista
+                query = await _scriptLoader.GetCachedScriptAsync(FolderPath, "Script_UpdateDriver.sql");
+                var parameters = new
+                {
+                    Id = driver.Id,
+                    Name = driver.Name,
+                    CPF = driver.CPF,
+                    Address = driver.Address,
+                    Phone = driver.Phone,
+                    CNH = driver.CNH,
+                    Bank = driver.Bank,
+                    Agency = driver.Agency,
+                    Account = driver.Account
+                };
+                command = new CommandDefinition(commandText: query, parameters: parameters);
+                await _connection.ExecuteAsync(command); // Executa a atualização
+            }
+
+            return driver;
+        }
+
         public Task<Owner> GetOwnerAsync(long id)
         {
             throw new NotImplementedException();
@@ -77,10 +129,7 @@ namespace Infrastructure
             throw new NotImplementedException();
         }
 
-        public Task<Driver> SaveDriverAsync(Driver driver)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public Task<Owner> SaveOwnerAsync(Owner owner)
         {
@@ -97,9 +146,10 @@ namespace Infrastructure
             throw new NotImplementedException();
         }
 
-        public Task<Vehicle> SaveVehiclesAsync(Vehicle vehicles)
+        public async Task<Vehicle> SaveVehiclesAsync(Vehicle vehicles)
         {
             throw new NotImplementedException();
+
         }
     }
 }

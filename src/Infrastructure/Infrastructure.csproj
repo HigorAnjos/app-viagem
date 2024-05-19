@@ -7,11 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Script_DeleteDriverById.sql" />
     <None Remove="Script_GetDriver.sql" />
+    <None Remove="Script_NewDriver.sql" />
+    <None Remove="Script_UpdateDriver.sql" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Script_DeleteDriverById.sql" />
     <EmbeddedResource Include="Script_GetDriver.sql" />
+    <EmbeddedResource Include="Script_NewDriver.sql" />
+    <EmbeddedResource Include="Script_UpdateDriver.sql" />
   </ItemGroup>
 
   <ItemGroup>
