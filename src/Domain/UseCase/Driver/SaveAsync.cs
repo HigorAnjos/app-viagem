@@ -5,7 +5,6 @@ namespace Domain.UseCase.Driver
     public interface ISaveDriverAsync
     {
         public Task<Domain.Entities.Driver> SaveDriverAsync(Domain.Entities.Driver driver);
-
     }
 
     public class SaveAsync : ISaveDriverAsync

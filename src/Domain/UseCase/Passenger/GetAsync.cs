@@ -1,4 +1,6 @@
-﻿namespace Domain.UseCase.Passenger
+﻿using Domain.Repository;
+
+namespace Domain.UseCase.Passenger
 {
     public interface IGetPassengerAsync
     {
@@ -7,9 +9,16 @@
 
     public class GetAsync : IGetPassengerAsync
     {
-        public Task<Entities.Passenger> GetPassengerAsync(long id)
+        private readonly IService _service;
+
+        public GetAsync(IService service)
         {
-            throw new NotImplementedException();
+            _service = service;
+        }
+
+        public async Task<Entities.Passenger> GetPassengerAsync(long id)
+        {
+            return await _service.GetPassengerAsync(id);
         }
     }
 }

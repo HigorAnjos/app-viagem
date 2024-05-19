@@ -1,4 +1,6 @@
 ﻿
+using Domain.Repository;
+
 namespace Domain.UseCase.Trip
 {
     public interface IGetTripAsync
@@ -8,9 +10,16 @@ namespace Domain.UseCase.Trip
 
     public class GetAsync : IGetTripAsync
     {
-        public Task<Entities.Trip> GetTripAsync(long id)
+        private readonly IService _service;
+
+        public GetAsync(IService service)
         {
-            throw new NotImplementedException();
+            _service = service;
+        }
+
+        public async Task<Entities.Trip> GetTripAsync(long id)
+        {
+            return await _service.GetTripAsync(id);
         }
     }
 }

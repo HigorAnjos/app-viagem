@@ -1,4 +1,6 @@
-﻿namespace Domain.UseCase.Passenger
+﻿using Domain.Repository;
+
+namespace Domain.UseCase.Passenger
 {
     public interface ISavePassengerAsync
     {
@@ -7,9 +9,15 @@
 
     public class SaveAsync : ISavePassengerAsync
     {
-        public Task<Domain.Entities.Passenger> SavePassengerAsync(Entities.Passenger passenger)
+        private readonly IService _service;
+
+        public SaveAsync(IService service)
         {
-            throw new NotImplementedException();
+            _service = service;
+        }
+        public async Task<Domain.Entities.Passenger> SavePassengerAsync(Entities.Passenger passenger)
+        {
+            return await _service.SavePassengerAsync(passenger);
         }
     }
 }

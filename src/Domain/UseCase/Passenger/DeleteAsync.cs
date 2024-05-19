@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,16 @@ namespace Domain.UseCase.Passenger
 
     public class DeleteAsync : IDeletePassengerAsync
     {
-        public Task<bool> DeletePassengerAsync(long id)
+        private readonly IService _service;
+
+        public DeleteAsync(IService service)
         {
-            throw new NotImplementedException();
+            _service = service;
+        }
+
+        public async Task<bool> DeletePassengerAsync(long id)
+        {
+            return await _service.DeletePassengerAsync(id);
         }
     }
 }

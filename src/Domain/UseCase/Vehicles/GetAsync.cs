@@ -1,4 +1,6 @@
-﻿namespace Domain.UseCase.Vehicles
+﻿using Domain.Repository;
+
+namespace Domain.UseCase.Vehicles
 {
     public interface IGetVehiclesAsync
     {
@@ -7,9 +9,16 @@
 
     public class GetAsync : IGetVehiclesAsync
     {
-        public Task<Entities.Vehicle> GetVehiclesAsync(long id)
+        private readonly IService _service;
+
+        public GetAsync(IService service)
         {
-            throw new NotImplementedException();
+            _service = service;
+        }
+
+        public async Task<Entities.Vehicle> GetVehiclesAsync(long id)
+        {
+            return await _service.GetVehiclesAsync(id);
         }
     }
 }

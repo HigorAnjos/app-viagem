@@ -1,4 +1,6 @@
 ﻿
+using Domain.Repository;
+
 namespace Domain.UseCase.Trip
 {
     public interface IDeleteTripAsync
@@ -8,9 +10,16 @@ namespace Domain.UseCase.Trip
 
     public class DeleteAsync : IDeleteTripAsync
     {
-        public Task<bool> DeleteTripAsync(long id)
+        private readonly IService _service;
+
+        public DeleteAsync(IService service)
         {
-            throw new NotImplementedException();
+            _service = service;
+        }
+
+        public async Task<bool> DeleteTripAsync(long id)
+        {
+            return await _service.DeleteTripAsync(id);
         }
     }
 }

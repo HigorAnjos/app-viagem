@@ -1,4 +1,6 @@
-﻿namespace Domain.UseCase.Owner
+﻿using Domain.Repository;
+
+namespace Domain.UseCase.Owner
 {
     public interface IDeleteOwnerAsync
     {
@@ -7,9 +9,16 @@
 
     public class DeleteAsync : IDeleteOwnerAsync
     {
-        public Task<bool> DeleteOwnerAsync(long id)
+        private readonly IService _service;
+
+        public DeleteAsync(IService service)
         {
-            throw new NotImplementedException();
+            _service = service;
+        }
+
+        public async Task<bool> DeleteOwnerAsync(long id)
+        {
+            return await _service.DeleteOwnerAsync(id);
         }
     }
 }

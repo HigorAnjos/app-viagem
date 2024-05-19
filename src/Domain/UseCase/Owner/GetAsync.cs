@@ -1,4 +1,6 @@
-﻿namespace Domain.UseCase.Owner
+﻿using Domain.Repository;
+
+namespace Domain.UseCase.Owner
 {
     public interface IGetOwnerAsync
     {
@@ -7,9 +9,16 @@
 
     public class GetAsync : IGetOwnerAsync
     {
-        public Task<Entities.Owner> GetOwnerAsync(long id)
+        private readonly IService _service;
+
+        public GetAsync(IService service)
         {
-            throw new NotImplementedException();
+            _service = service;
+        }
+
+        public async Task<Entities.Owner> GetOwnerAsync(long id)
+        {
+            return await _service.GetOwnerAsync(id);
         }
     }
 }

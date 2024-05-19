@@ -1,4 +1,6 @@
-﻿namespace Domain.UseCase.Trip
+﻿using Domain.Repository;
+
+namespace Domain.UseCase.Trip
 {
     public interface ISaveTripAsync
     {
@@ -7,9 +9,16 @@
 
     public class SaveAsync : ISaveTripAsync
     {
-        public Task<Entities.Trip> SaveTripAsync(Entities.Trip trip)
+        private readonly IService _service;
+
+        public SaveAsync(IService service)
         {
-            throw new NotImplementedException();
+            _service = service;
+        }
+
+        public async Task<Entities.Trip> SaveTripAsync(Entities.Trip trip)
+        {
+            return await _service.SaveTripAsync(trip);
         }
     }
 }

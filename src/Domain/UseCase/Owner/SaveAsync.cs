@@ -1,5 +1,6 @@
 ﻿
 using Domain.Entities;
+using Domain.Repository;
 
 namespace Domain.UseCase.Owner
 {
@@ -10,9 +11,16 @@ namespace Domain.UseCase.Owner
 
     public class SaveAsync : ISaveOwnerAsync
     {
-        public Task<Entities.Owner> SaveOwnerAsync(Entities.Owner owner)
+        private readonly IService _service;
+
+        public SaveAsync(IService service)
         {
-            throw new NotImplementedException();
+            _service = service;
+        }
+
+        public async Task<Entities.Owner> SaveOwnerAsync(Entities.Owner owner)
+        {
+            return await _service.SaveOwnerAsync(owner);
         }
     }
 }

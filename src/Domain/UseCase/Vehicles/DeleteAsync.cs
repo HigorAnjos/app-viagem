@@ -1,4 +1,6 @@
-﻿namespace Domain.UseCase.Vehicles
+﻿using Domain.Repository;
+
+namespace Domain.UseCase.Vehicles
 {
     public interface IDeleteVehiclesAsync
     {
@@ -7,9 +9,16 @@
 
     public class DeleteAsync : IDeleteVehiclesAsync
     {
-        public Task<bool> DeleteVehiclesAsync(long id)
+        private readonly IService _service;
+
+        public DeleteAsync(IService service)
         {
-            throw new NotImplementedException();
+            _service = service;
+        }
+
+        public async Task<bool> DeleteVehiclesAsync(long id)
+        {
+            return await _service.DeleteVehiclesAsync(id);
         }
     }
 }
