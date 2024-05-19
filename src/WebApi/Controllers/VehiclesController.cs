@@ -32,7 +32,7 @@ namespace WebApi.Controllers
 
         // POST api/vehicles
         [HttpPost]
-        public async Task<IActionResult> SaveVehicleAsync([FromBody] Domain.Entities.Vehicles vehicle)
+        public async Task<IActionResult> SaveVehicleAsync([FromBody] Domain.Entities.Vehicle vehicle)
         {
             if (vehicle == null)
             {

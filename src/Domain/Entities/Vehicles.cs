@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
-    public class Vehicles
+    public class Vehicle
     {
-        public Vehicles() { }
-
         public int Id { get; set; }
+        public int? OwnerId { get; set; }
+        public string LicensePlate { get; set; }
+        public string Brand { get; set; }
+        public string Model { get; set; }
+        public DateTime? ManufactureYear { get; set; }
+        public int? Capacity { get; set; }
+        public string Color { get; set; }
+        public string FuelType { get; set; }
+        public string EnginePower { get; set; }
     }
 }

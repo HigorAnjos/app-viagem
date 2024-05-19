@@ -2,12 +2,12 @@
 {
     public interface ISaveVehiclesAsync
     {
-        public Task<Entities.Vehicles> SaveVehiclesAsync(Entities.Vehicles vehicles);
+        public Task<Entities.Vehicle> SaveVehiclesAsync(Entities.Vehicle vehicles);
     }
 
     public class SaveAsync : ISaveVehiclesAsync
     {
-        public Task<Entities.Vehicles> SaveVehiclesAsync(Entities.Vehicles vehicles)
+        public Task<Entities.Vehicle> SaveVehiclesAsync(Entities.Vehicle vehicles)
         {
             throw new NotImplementedException();
         }
