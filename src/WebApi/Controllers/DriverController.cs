@@ -18,18 +18,18 @@ namespace WebApi.Controllers
             _deleteDriverByIdAsync = deleteDriverByIdAsync;
         }
 
-        // GET api/driver/{id}/payment-driver
-        [HttpGet("{id}/payment-driver")]
-        public async Task<IActionResult> GetDriverByIdAsync(int id, [FromQuery] DateTime? date = null)
-        {
-            var dateToUse = date ?? DateTime.Today;
-            var result = await _service.GetDriverByIdAsync(id, dateToUse);
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return Ok(result);
-        }
+        //// GET api/driver/{id}/payment-driver
+        //[HttpGet("{id}/payment-driver")]
+        //public async Task<IActionResult> GetDriverByIdAsync(int id, [FromQuery] DateTime? date = null)
+        //{
+        //    var dateToUse = date ?? DateTime.Today;
+        //    var result = await _service.GetDriverByIdAsync(id, dateToUse);
+        //    if (result == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(result);
+        //}
 
 
         // GET api/driver/{id}
@@ -48,19 +48,27 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveDriverAsync([FromBody] Domain.Entities.Driver driver)
         {
-            if (driver == null)
+            try
             {
-                return BadRequest();
+
+                if (driver == null)
+                {
+                    return BadRequest();
+                }
+
+                var result = await _saveDriverByIdAsync.SaveDriverAsync(driver);
+
+                if (result == null)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while saving the driver.");
+                }
+
+                return StatusCode(StatusCodes.Status201Created, result);
             }
-
-            var result = await _saveDriverByIdAsync.SaveDriverAsync(driver);
-
-            if (result == null)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while saving the driver.");
+                return BadRequest(ex.Message);
             }
-
-            return StatusCode(StatusCodes.Status201Created, result);
         }
 
         // DELETE api/driver/{id}

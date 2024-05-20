@@ -35,12 +35,20 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveTripAsync([FromBody] Domain.Entities.Trip trip)
         {
-            if (trip == null)
+            try
             {
-                return BadRequest();
+
+                if (trip == null)
+                {
+                    return BadRequest();
+                }
+                var result = await _saveTripAsync.SaveTripAsync(trip);
+                return CreatedAtAction(nameof(GetTripByIdAsync), new { id = result.Id }, result);
             }
-            var result = await _saveTripAsync.SaveTripAsync(trip);
-            return CreatedAtAction(nameof(GetTripByIdAsync), new { id = result.Id }, result);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE api/trip/{id}

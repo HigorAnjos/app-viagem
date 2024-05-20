@@ -85,7 +85,7 @@ namespace Infrastructure
                         Account = driver.Account
                     };
                     command = new CommandDefinition(commandText: query, parameters: parameters);
-                    await _connection.ExecuteAsync(command); // Executa a atualização
+                    await _connection.ExecuteAsync(command);
                 }
 
                 return driver;
@@ -293,7 +293,7 @@ namespace Infrastructure
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException("An error occurred while saving the Passenger.", ex);
+                throw new InvalidOperationException("An error occurred while saving the Trip.", ex);
             }
         }
 
