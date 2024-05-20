@@ -7,17 +7,49 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Script_DeleteDriverById.sql" />
-    <None Remove="Script_GetDriver.sql" />
-    <None Remove="Script_NewDriver.sql" />
-    <None Remove="Script_UpdateDriver.sql" />
+    <None Remove="Driver\Script_DeleteDriverById.sql" />
+    <None Remove="Driver\Script_GetDriver.sql" />
+    <None Remove="Driver\Script_NewDriver.sql" />
+    <None Remove="Driver\Script_UpdateDriver.sql" />
+    <None Remove="Owner\Script_DeleteOwnerById.sql" />
+    <None Remove="Owner\Script_GetOwner.sql" />
+    <None Remove="Owner\Script_NewOwner.sql" />
+    <None Remove="Owner\Script_UpdateOwner.sql" />
+    <None Remove="Passenger\Script_DeletePassengerById.sql" />
+    <None Remove="Passenger\Script_GetPassenger.sql" />
+    <None Remove="Passenger\Script_NewPassenger.sql" />
+    <None Remove="Passenger\Script_UpdatePassenger.sql" />
+    <None Remove="Trip\Script_DeleteTripById.sql" />
+    <None Remove="Trip\Script_GetTrip.sql" />
+    <None Remove="Trip\Script_NewTrip.sql" />
+    <None Remove="Trip\Script_UpdateTrip.sql" />
+    <None Remove="Vehicles\Script_DeleteVehiclesById.sql" />
+    <None Remove="Vehicles\Script_GetVehicles.sql" />
+    <None Remove="Vehicles\Script_NewVehicles.sql" />
+    <None Remove="Vehicles\Script_UpdateVehicles.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Script_DeleteDriverById.sql" />
-    <EmbeddedResource Include="Script_GetDriver.sql" />
-    <EmbeddedResource Include="Script_NewDriver.sql" />
-    <EmbeddedResource Include="Script_UpdateDriver.sql" />
+    <EmbeddedResource Include="Driver\Script_DeleteDriverById.sql" />
+    <EmbeddedResource Include="Driver\Script_GetDriver.sql" />
+    <EmbeddedResource Include="Driver\Script_NewDriver.sql" />
+    <EmbeddedResource Include="Driver\Script_UpdateDriver.sql" />
+    <EmbeddedResource Include="Owner\Script_DeleteOwnerById.sql" />
+    <EmbeddedResource Include="Owner\Script_GetOwner.sql" />
+    <EmbeddedResource Include="Owner\Script_NewOwner.sql" />
+    <EmbeddedResource Include="Owner\Script_UpdateOwner.sql" />
+    <EmbeddedResource Include="Passenger\Script_DeletePassengerById.sql" />
+    <EmbeddedResource Include="Passenger\Script_GetPassenger.sql" />
+    <EmbeddedResource Include="Passenger\Script_NewPassenger.sql" />
+    <EmbeddedResource Include="Passenger\Script_UpdatePassenger.sql" />
+    <EmbeddedResource Include="Trip\Script_DeleteTripById.sql" />
+    <EmbeddedResource Include="Trip\Script_GetTrip.sql" />
+    <EmbeddedResource Include="Trip\Script_NewTrip.sql" />
+    <EmbeddedResource Include="Trip\Script_UpdateTrip.sql" />
+    <EmbeddedResource Include="Vehicles\Script_DeleteVehiclesById.sql" />
+    <EmbeddedResource Include="Vehicles\Script_GetVehicles.sql" />
+    <EmbeddedResource Include="Vehicles\Script_NewVehicles.sql" />
+    <EmbeddedResource Include="Vehicles\Script_UpdateVehicles.sql" />
   </ItemGroup>
 
   <ItemGroup>

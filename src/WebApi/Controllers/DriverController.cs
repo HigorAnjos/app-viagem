@@ -18,6 +18,20 @@ namespace WebApi.Controllers
             _deleteDriverByIdAsync = deleteDriverByIdAsync;
         }
 
+        // GET api/driver/{id}/payment-driver
+        [HttpGet("{id}/payment-driver")]
+        public async Task<IActionResult> GetDriverByIdAsync(int id, [FromQuery] DateTime? date = null)
+        {
+            var dateToUse = date ?? DateTime.Today;
+            var result = await _service.GetDriverByIdAsync(id, dateToUse);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
+
+
         // GET api/driver/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDriverByIdAsync(int id)

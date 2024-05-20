@@ -19,6 +19,7 @@ namespace Domain.Extensions
             services.AddScoped<IDeleteDriverByIdAsync, UseCase.Driver.DeleteAsync>();
             services.AddScoped<IGetDriverByIdAsync, UseCase.Driver.GetAsync>();
             services.AddScoped<ISaveDriverAsync, UseCase.Driver.SaveAsync>();
+            services.AddScoped<IGetPaymentDriverAsync, UseCase.Driver.GetPaymentDriver>();
 
             #endregion
 
