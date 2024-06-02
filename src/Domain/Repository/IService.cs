@@ -12,7 +12,7 @@ namespace Domain.Repository
         IDeleteOwnerAsync, IGetOwnerAsync, ISaveOwnerAsync,
         IDeletePassengerAsync, IGetPassengerAsync, ISavePassengerAsync,
         IDeleteTripAsync, IGetTripAsync, ISaveTripAsync,
-        IDeleteVehiclesAsync, IGetVehiclesAsync, ISaveVehiclesAsync
+        IDeleteVehiclesAsync, IGetVehiclesAsync, ISaveVehiclesAsync, IJourneyReportAsync, IGetTop20RevenuesAsync, IGetMonthlyAverageTripsByGenderAsync
     { }
 
 }

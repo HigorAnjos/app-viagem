@@ -2,9 +2,12 @@
 using Domain.Abstractions;
 using Domain.Entities;
 using Domain.Repository;
+using Domain.UseCase.Trip;
+using Domain.UseCase.Vehicles;
 using Infrastructure.Options;
 using Microsoft.Extensions.Options;
 using Npgsql;
+using System;
 using System.Data;
 
 
@@ -364,6 +367,52 @@ namespace Infrastructure
             {
                 throw new InvalidOperationException("An error occurred while saving the Passenger.", ex);
             }
+        }
+
+        public async Task<IEnumerable<Vehicle>> GetAllVehiclesAsync()
+        {
+            var query = await _scriptLoader.GetCachedScriptAsync(FolderPath, "Vehicle.Script_GetAllVehicle.sql");
+            var command = new CommandDefinition(commandText: query);
+            return await _connection.QueryAsync<Vehicle>(command);
+        }
+
+        public async Task<IEnumerable<Trip>> GetAllTripAsync()
+        {
+            var query = await _scriptLoader.GetCachedScriptAsync(FolderPath, "Trip.Script_GetAllTrip.sql");
+            var command = new CommandDefinition(commandText: query);
+            return await _connection.QueryAsync<Trip>(command);
+        }
+
+        public async Task<IEnumerable<JourneyReportDto>> GetJourneyReportAsync(string brand, DateTime initDate, DateTime endDate)
+        {
+            var query = await _scriptLoader.GetCachedScriptAsync(FolderPath, "Trip.Script_GetJourneyReportAsync.sql");
+            var parameters = new
+            {
+                Brand = brand,
+                InitDate = initDate,
+                EndDate = endDate
+            };
+            var command = new CommandDefinition(commandText: query, parameters: parameters);
+            return await _connection.QueryAsync<JourneyReportDto>(command);
+        }
+
+        public async Task<IEnumerable<RevenuesDto>> GetTopRevenuesAsync(DateTime month)
+        {
+            var query = await _scriptLoader.GetCachedScriptAsync(FolderPath, "Vehicles.Script_GetTopRevenuesAsync.sql");
+            var command = new CommandDefinition(
+                commandText: query,
+                parameters: new { Month = month }
+            );
+            return await _connection.QueryAsync<RevenuesDto>(command);
+        }
+
+        public async Task<IEnumerable<MonthlyAverageTripsByGenderDto>> GetMonthlyAverageTrips()
+        {
+            var query = await _scriptLoader.GetCachedScriptAsync(FolderPath, "Vehicles.Script_GetMonthlyAverageTrips.sql");
+            var command = new CommandDefinition(
+                commandText: query
+            );
+            return await _connection.QueryAsync<MonthlyAverageTripsByGenderDto>(command);
         }
     }
 }

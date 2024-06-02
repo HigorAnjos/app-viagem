@@ -11,12 +11,14 @@ namespace WebApi.Controllers
         private readonly IDeleteTripAsync _deleteTripAsync;
         private readonly IGetTripAsync _getTripAsync;
         private readonly ISaveTripAsync _saveTripAsync;
+        private readonly IJourneyReportAsync _journeyReportAsync;
 
-        public TripController(IDeleteTripAsync deleteTripAsync, IGetTripAsync getTripAsync, ISaveTripAsync saveTripAsync)
+        public TripController(IDeleteTripAsync deleteTripAsync, IGetTripAsync getTripAsync, ISaveTripAsync saveTripAsync, IJourneyReportAsync journeyReportAsync)
         {
             _deleteTripAsync = deleteTripAsync;
             _getTripAsync = getTripAsync;
             _saveTripAsync = saveTripAsync;
+            _journeyReportAsync = journeyReportAsync;
         }
 
         // GET api/trip/{id}
@@ -62,5 +64,19 @@ namespace WebApi.Controllers
             }
             return NoContent();
         }
+
+        // GET api/trip/report
+        [HttpGet("report")]
+        public async Task<IActionResult> GetJourneyReportAsync([FromQuery] string brand, [FromQuery] DateTime initDate, [FromQuery] DateTime endDate)
+        {
+            if (string.IsNullOrEmpty(brand) || initDate == default || endDate == default)
+            {
+                return BadRequest("Invalid input parameters.");
+            }
+
+            var result = await _journeyReportAsync.GetJourneyReportAsync(brand, initDate, endDate);
+            return Ok(result);
+        }
+
     }
 }

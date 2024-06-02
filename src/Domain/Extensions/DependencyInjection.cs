@@ -39,12 +39,15 @@ namespace Domain.Extensions
             services.AddScoped<IDeleteTripAsync, UseCase.Trip.DeleteAsync>();
             services.AddScoped<IGetTripAsync, UseCase.Trip.GetAsync>();
             services.AddScoped<ISaveTripAsync, UseCase.Trip.SaveAsync>();
+            services.AddScoped<IJourneyReportAsync, UseCase.Trip.JourneyReportAsync>();
+            services.AddScoped<IGetMonthlyAverageTripsByGenderAsync, UseCase.Trip.GetMonthlyAverageTripsByGenderAsync>();
             #endregion
 
             #region Vehicles
             services.AddScoped<IDeleteVehiclesAsync, UseCase.Vehicles.DeleteAsync>();
             services.AddScoped<IGetVehiclesAsync, UseCase.Vehicles.GetAsync>();
             services.AddScoped<ISaveVehiclesAsync, UseCase.Vehicles.SaveAsync>();
+            services.AddScoped<IGetTop20RevenuesAsync, UseCase.Vehicles.GetTop20RevenuesAsync>();
             #endregion
 
             return services;
